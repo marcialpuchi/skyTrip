@@ -91,7 +91,7 @@ def get_required_flight_data(start_date,end_date,city_codes):
 	return merged_data
 
 x = [("edi",4),("lon",3),("jfk",3)]
-datetime.datetime(year=2015,month=3,day=2)
+y = datetime.datetime(year=2015,month=3,day=2)
 def test(city_codes_with_days,start_date):
 	'''
 	city_codes_with_days format
@@ -106,7 +106,7 @@ def test(city_codes_with_days,start_date):
 	end = datetime.datetime(year=2015,month=3,day=12)
 	city_codes = [y[0] for y in city_codes_with_days]
 	flight_data = get_required_flight_data(start,end,city_codes)
-	flight_plans = possible_configs(x,start)
+	flight_plans = possible_configs(city_codes_with_days,start)
 	x = get_price_for_each_plan(flight_data,flight_plans)
 	return x
 
