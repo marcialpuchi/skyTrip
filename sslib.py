@@ -3,10 +3,9 @@ import urllib2
 import re
 import sys
 import time
-import sk
 import datetime 
 import itertools
-apiKey = open("skyscanner.py",'r').read()
+apiKey = open("skyscanner.txt",'r').read()
 
 # Global vars:
 AUTOSUGGEST_URL = "http://partners.api.skyscanner.net/apiservices/autosuggest/v1.0//GB/GBP/en-GB"
@@ -41,6 +40,7 @@ def fetch_prices(orig,dest,date,date2):
    	date_from = date #+ "/"
    	date_to   =""# date2
    	url = SKYSCANNER_URL+ input_from + input_to + date_from+ date_to + "?apikey=" + apiKey
+
    	data= json.load(urllib2.urlopen(url))
    	return data
 
