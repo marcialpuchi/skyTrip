@@ -1,5 +1,6 @@
 $(function(){
-	$('.destinations input').on('input', function(){
+
+	$('.origin input').on('input', function(){
 
 		ul = $(this).parent().find('ul')[0]
 		
@@ -13,6 +14,19 @@ $(function(){
 		}
 	})
 
+	$('.destinations input').on('input', function(){
+
+		ul = $(this).parent().find('ul')[0]
+		
+		if ($(this).val() !== ''){
+			$(ul).css('display','block')
+			search($(this).val(), ul)
+
+		}else{
+			$(ul).html('')
+			$(ul).css('display','none')
+		}
+	})
 })
 
 

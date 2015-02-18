@@ -20,6 +20,8 @@
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="js/datepicker/css/datepicker.css">
+
     <link rel="stylesheet" type="text/css" href="css/extra.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -77,45 +79,88 @@
                         <h3>Where do you want to go today?</h3>
                         <hr class="intro-divider">
                         
-                        <form class="destinations form-horizontal">
+                        <form class="form-horizontal" action="/get_results">
 
-                            <div class="form-group">
+                            <div class="origin col-sm-12" style="margin-bottom: 10px; display:inline-block;">
 
-                                <!-- <div class="form-group col-sm-12">
-                                    <ul style="position: relative">
-                                        <li id='origin' class="col-sm-4">
-                                            <input type="text" class="form-control" placeholder="Origin" data-provide="typeahead" >
-                                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="margin-left: 15px">
-                                            </ul>
-                                        </li>
-                                    </ul>   
-                                </div> -->
+                                <div class="col-sm-4 col-sm-offset-3" style="position:relative;">
+                                    <input type="text" class="cities form-control" placeholder="Origin">
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="margin-left: 15px;"></ul>
+                                </div>
+
+                                <div class="col-sm-2 input-group">
+                                    <input type="date" class="cities form-control" placeholder="Date">
+                                    <!-- <div class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                                    </div> -->
+                                </div>
+                                
+                            </div>
+
+
+                            <div class="destinations col-sm-12 form-inline" style="margin-bottom: 50px">
 
                                 <ul style="position: relative">
-                                    <li id='origin' class="col-sm-4">
-                                        <input type="text" class="form-control" placeholder="Origin" data-provide="typeahead" >
+                                    <li class="col-sm-4">
+                                    
+                                        <input type="text" class="form-control col-sm-8" placeholder="Destination ..." style="margin-right: 10px">
+                                        <select class="form-control col-sm-3" name="category">
+                                            <option value="">Days</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>           
+                                    
+                                        
                                         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="margin-left: 15px">
                                         </ul>
                                     </li>
 
-                                    <li id='dest1' class="col-sm-4">
-                                        <input type="text" class="form-control" placeholder="Destination 1" data-provide="typeahead" >
+                                    <li class="col-sm-4">
+                                    
+                                        <input type="text" class="form-control col-sm-8" placeholder="Destination ..." style="margin-right: 10px">
+                                        <select class="form-control col-sm-3" name="category">
+                                            <option value="">Days</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>           
+                                    
+                                        
                                         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="margin-left: 15px">
                                         </ul>
                                     </li>
 
-                                    <li id='dest2' class="col-sm-4">
-                                        <input type="text" class="form-control" placeholder="Destination 2" data-provide="typeahead" >
+                                    <li class="col-sm-4">
+                                    
+                                        <input type="text" class="form-control col-sm-8" placeholder="Destination ..." style="margin-right: 10px">
+                                        <select class="form-control col-sm-3" name="category">
+                                            <option value="">Days</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>           
+                                    
+                                        
                                         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="margin-left: 15px">
                                         </ul>
                                     </li>
+
+
                                 </ul>
                             </div>
                             
-                            <div class="form-group" class="col-sm-10">
-                                <div >
-                                    <button type="submit" class="btn btn-default">Search!</button>
-                                </div>    
+                            <div class="col-sm-6 col-sm-offset-3">
+                                
+                                <button type="submit" class="btn btn-primary col-sm-4">Search!</button>
+                                <button class="btn btn-danger col-sm-4 col-sm-offset-4">Clear</button>
+                                
                             </div>
                             
                         </form>
@@ -260,12 +305,14 @@
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular.min.js"></script>
+    <!-- 
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkw_DqMSFgA6NS-m1njHIrl6cr9JQ_2Os"></script>
-
+ -->
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
     <script src="js/parallax.min.js"></script>
     <script src="js/typeahead.js"></script>
+    <script src="js/datepicker/js/bootstrap-datepicker.js"></script>
     <script src="js/extra.js"></script>
     <script src="js/map.js"></script>
 
