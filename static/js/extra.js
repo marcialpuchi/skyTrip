@@ -26,7 +26,7 @@ var search = function(q, list){
 	    jsonpCallback: 'callback',
 	    data: {
 	        query:q,
-			apikey:''
+			apikey:'ilw02375360823411197864901011420'
 	    },
 	    success: function( response ) {
 	    	var elements = ''
@@ -34,15 +34,18 @@ var search = function(q, list){
 	    	$.each(response.Places, function(e){
 	    		var name = this.PlaceName
 	    		var id = this.PlaceId.replace('-sky', '')
-	    		elements += '<li role="presentation"><a role="menuitem" tabindex="-1" href="#">'+ name + ' (' + id +') </a></li>'	
+	    		elements += '<li role="presentation"><a role="menuitem" tabindex="-1">'+ name + ' (' + id +') </a></li>'	
 	    	})
 
 	    	$(list).html(elements)
 	    	
-	    	$(list).find('li').on('click', function(){
+	    	$(list).find('li').on('click', function(e){
+	    		// e.PreventDefault();
 	    		selected = $(this).find('a')[0].text
 	    		$(list).parent().find('input').val(selected)
 	    		$(list).css('display', 'none')
+	    		
+
 	    	})
 	    }
 	});
