@@ -79,17 +79,17 @@
                         <h3>Where do you want to go today?</h3>
                         <hr class="intro-divider">
                         
-                        <form class="form-horizontal" action="/get_results">
+                        <form class="form-horizontal" action="/get_results" method="POST">
 
                             <div class="origin col-sm-12" style="margin-bottom: 10px; display:inline-block;">
 
                                 <div class="col-sm-4 col-sm-offset-3" style="position:relative;">
-                                    <input type="text" class="cities form-control" placeholder="Origin">
+                                    <input type="text" class="cities form-control" placeholder="Origin" name="origin">
                                     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="margin-left: 15px;"></ul>
                                 </div>
 
                                 <div class="col-sm-2 input-group">
-                                    <input type="date" class="cities form-control" placeholder="Date">
+                                    <input type="date" class="cities form-control" placeholder="Date" name="date">
                                     <!-- <div class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
                                     </div> -->
@@ -103,8 +103,8 @@
                                 <ul style="position: relative">
                                     <li class="col-sm-4">
                                     
-                                        <input type="text" class="form-control col-sm-8" placeholder="Destination ..." style="margin-right: 10px">
-                                        <select class="form-control col-sm-3" name="category">
+                                        <input type="text" class="form-control col-sm-8" placeholder="Destination ..." style="margin-right: 10px" name="D1">
+                                        <select class="form-control col-sm-3" name="days_D1">
                                             <option value="">Days</option>
                                             <option value="1">1</option>
                                             <option value="2">2</option>
@@ -120,8 +120,8 @@
 
                                     <li class="col-sm-4">
                                     
-                                        <input type="text" class="form-control col-sm-8" placeholder="Destination ..." style="margin-right: 10px">
-                                        <select class="form-control col-sm-3" name="category">
+                                        <input type="text" class="form-control col-sm-8" placeholder="Destination ..." style="margin-right: 10px" name="D2">
+                                        <select class="form-control col-sm-3" name="days_D2">
                                             <option value="">Days</option>
                                             <option value="1">1</option>
                                             <option value="2">2</option>
@@ -137,8 +137,8 @@
 
                                     <li class="col-sm-4">
                                     
-                                        <input type="text" class="form-control col-sm-8" placeholder="Destination ..." style="margin-right: 10px">
-                                        <select class="form-control col-sm-3" name="category">
+                                        <input type="text" class="form-control col-sm-8" placeholder="Destination ..." style="margin-right: 10px" name="D3">
+                                        <select class="form-control col-sm-3" name="days_D3">
                                             <option value="">Days</option>
                                             <option value="1">1</option>
                                             <option value="2">2</option>
