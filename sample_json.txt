@@ -1,0 +1,192 @@
+{
+  "Routes": [
+    {
+      "Route1": [
+        {
+          "Leg1": {
+            "leg_data": {
+              "Date": "2015-03-05",
+              "Dest": "edi",
+              "Orig": "lon"
+            },
+            "leg": 2
+          },
+          "LegPrice": 20,
+          "Carrier": [
+            "Ryanair"
+          ]
+        },
+        {
+          "Leg2": {
+            "leg_data": {
+              "Date": "2015-03-08",
+              "Dest": "jfk",
+              "Orig": "edi"
+            },
+            "leg": 3
+          },
+          "LegPrice": 458,
+          "Carrier": [
+            "Aer Lingus"
+          ]
+        },
+        {
+          "Leg3": {
+            "leg_data": {
+              "Date": "2015-03-02",
+              "Dest": "lon",
+              "Orig": "cdg"
+            },
+            "leg": 1
+          },
+          "Carrier": [
+            "easyJet"
+          ],
+          "LegPrice": 39
+        }
+      ],
+      "Cost": 517
+    },
+    {
+      "Route3": [
+        {
+          "Leg1": {
+            "leg_data": {
+              "Date": "2015-03-07",
+              "Dest": "lon",
+              "Orig": "edi"
+            },
+            "leg": 2
+          },
+          "LegPrice": 20,
+          "Carrier": [
+            "Ryanair"
+          ]
+        },
+        {
+          "Leg2": {
+            "leg_data": {
+              "Date": "2015-03-10",
+              "Dest": "jfk",
+              "Orig": "lon"
+            },
+            "leg": 3
+          },
+          "LegPrice": 205,
+          "Carrier": [
+            "Norwegian"
+          ]
+        },
+        {
+          "Leg3": {
+            "leg_data": {
+              "Date": "2015-03-02",
+              "Dest": "edi",
+              "Orig": "cdg"
+            },
+            "leg": 1
+          },
+          "Carrier": [
+            "easyJet"
+          ],
+          "LegPrice": 49
+        }
+      ],
+      "Cost": 274
+    },
+    {
+      "Cost": 722,
+      "Route4": [
+        {
+          "Leg1": {
+            "leg_data": {
+              "Date": "2015-03-05",
+              "Dest": "jfk",
+              "Orig": "edi"
+            },
+            "leg": 2
+          },
+          "LegPrice": 457,
+          "Carrier": [
+            "Aer Lingus"
+          ]
+        },
+        {
+          "Leg2": {
+            "leg_data": {
+              "Date": "2015-03-10",
+              "Dest": "lon",
+              "Orig": "jfk"
+            },
+            "leg": 3
+          },
+          "LegPrice": 216,
+          "Carrier": [
+            "Norwegian"
+          ]
+        },
+        {
+          "Leg3": {
+            "leg_data": {
+              "Date": "2015-03-02",
+              "Dest": "edi",
+              "Orig": "cdg"
+            },
+            "leg": 1
+          },
+          "Carrier": [
+            "easyJet"
+          ],
+          "LegPrice": 49
+        }
+      ]
+    },
+    {
+      "Cost": 628,
+      "Route5": [
+        {
+          "Leg1": {
+            "leg_data": {
+              "Date": "2015-03-07",
+              "Dest": "lon",
+              "Orig": "jfk"
+            },
+            "leg": 2
+          },
+          "LegPrice": 246,
+          "Carrier": [
+            "Norwegian"
+          ]
+        },
+        {
+          "Leg2": {
+            "leg_data": {
+              "Date": "2015-03-10",
+              "Dest": "edi",
+              "Orig": "lon"
+            },
+            "leg": 3
+          },
+          "LegPrice": 20,
+          "Carrier": [
+            "Ryanair"
+          ]
+        },
+        {
+          "Leg3": {
+            "leg_data": {
+              "Date": "2015-03-02",
+              "Dest": "jfk",
+              "Orig": "cdg"
+            },
+            "leg": 1
+          },
+          "Carrier": [
+            "Aeroflot"
+          ],
+          "LegPrice": 362
+        }
+      ]
+    }
+  ]
+}
