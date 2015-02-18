@@ -1,4 +1,5 @@
 from flask import Flask, jsonify,request
+import re
 app = Flask(__name__, static_url_path='')
 import sslib
 import json
@@ -10,26 +11,29 @@ import datetime
 def index():
 	return app.send_static_file("index.html")
 
-@app.route("/get_results", methods=["POST"])
+@app.route("/get_result", methods=["POST"])
 def asdad():
-	print request.form
+	print request.form[0]
 	return 'sdfsdd'
 
-@app.route("/get_result", methods=["POST"])
+@app.route("/get_results", methods=["GET","POST"])
 def asdab():
-	
-	print request.form
-
+	d1 = request.form['D1'].split('(')[1][:-2]
+	d2 = request.form['D2'].split('(')[1][:-2]
+	d3 = request.form['D3'].split('(')[1][:-2]
+	daysD1=int(request.form['days_D1'])
+	daysD2=int(request.form['days_D2'])
+	daysD3=int(request.form['days_D3'])
+	date=request.form['date']
+	origin=request.form['origin'].split('(')[1][:-2]
 	sample_json = {'Cities':[
-			{'CityId': 'lon', 'Days': 3},
-			{'CityId': 'lca','Days': 4},
-			{'CityId': 'jfk','Days': 3}
+			{'CityId': d1, 'Days':daysD1},
+			{'CityId': d2,'Days':daysD2},
+			{'CityId': d3,'Days':daysD2}
 			],
-	'Home_city':'edi',	
-	'Start_date':'2015-03-02' 
+	'Home_city':origin,	
+	'Start_date':'2015-03-010' 
 	}
-
-
 	#sample_json =(request.get_json())
 	
 	city_list = []
@@ -43,7 +47,7 @@ def asdab():
 	#print year,month,day
 	start_date = datetime.date(year,month,day)
 	return str(prob.test(city_list,start_date,homecity))
-
+	
 
 
 if __name__ == "__main__":
