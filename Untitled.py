@@ -1,29 +1,15 @@
 from flask import Flask, jsonify,request
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='')
 import sslib
 import json
 import prob
 import datetime
 
 
-@app.route("/")
-def hello():
-	#x = sslib.autosuggest_place("edinburgh")
-	x = sslib.fetch_prices('jfk','lhr','2015-03-01','2015-03-04')
-
-	return json.dumps(x)
-
-'''
-Sample JSON
-
-{'Cities':[
-			{'CityId': 'lon'},
-			{'CityId': 'lca'},
-			{'CityId': 'jfk'}
-			]	
-	'Start_date':'2015-03-02' 
-	}
-'''
+@app.route('/')
+def index():
+	return app.send_static_file("index.html")
+	
 @app.route("/get_results/", methods=["POST"])
 def asdad():
 	
