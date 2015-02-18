@@ -1,5 +1,8 @@
 var geocoder;
 var map;
+var markers = [];
+
+
 
 function initialize() {
 	geocoder = new google.maps.Geocoder();
@@ -111,8 +114,13 @@ function initialize() {
 
 function codeAddress() {
 
-	var address = "Edinburgh";
-	geocoder.geocode( { 'address': address}, function(results, status) {
+	dropPin(map,'Edinburgh');
+
+}
+
+var dropPin = function( map , place ){
+	
+	geocoder.geocode( { 'address': place}, function(results, status) {
 		if (status == google.maps.GeocoderStatus.OK) {
 			map.setCenter(results[0].geometry.location);
 			var image = new google.maps.MarkerImage("img/location-pin.png", null, null, null, new google.maps.Size(32, 32));
@@ -122,11 +130,26 @@ function codeAddress() {
 				position: results[0].geometry.location
 			});
 
+			markers.push(beachMarker);
+		
 		} else {
 			alert('Geocode was not successful for the following reason: ' + status);
 		}
 	});
+
+	
+	var bounds = new google.maps.LatLngBounds();
+    
+    for (var i = 0; i < markers.length ; i++) {
+            bounds.extend( markers[i].getPosition() );
+
+    };
+
+    map.fitBounds(bounds);
+
 }
+
+
 
 function loadScript() {
 	var script = document.createElement('script');
