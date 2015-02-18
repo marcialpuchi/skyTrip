@@ -18,24 +18,25 @@ def asdad():
 
 @app.route("/get_results", methods=["GET","POST"])
 def asdab():
-	d1 = request.form['D1'].split('(')[1][:-1]
-	d2 = request.form['D2'].split('(')[1][:-1]
-	d3 = request.form['D3'].split('(')[1][:-1]
+	d1 = request.form['D1'].split('(')[1].split(')')[0]
+	d2 = request.form['D2'].split('(')[1].split(')')[0]
+	d3 = request.form['D3'].split('(')[1].split(')')[0]
 	daysD1=int(request.form['days_D1'])
 	daysD2=int(request.form['days_D2'])
 	daysD3=int(request.form['days_D3'])
 	date=request.form['date']
-	origin=request.form['origin'].split('(')[1][:-1]
+	origin=request.form['origin'].split('(')[1].split(')')[0]
 	sample_json = {'Cities':[
 			{'CityId': d1, 'Days':daysD1},
 			{'CityId': d2,'Days':daysD2},
-			{'CityId': d3,'Days':daysD2}
+			{'CityId': d3,'Days':daysD3}
 			],
 	'Home_city':origin,	
-	'Start_date':'2015-03-010' 
+	'Start_date':'2015-04-10'
+
 	}
 	#sample_json =(request.get_json())
-	
+	print d1,daysD1,d2,daysD2,d3,daysD3,origin
 	city_list = []
 	for city in sample_json['Cities']:
 		city_list.append((city['CityId'],city['Days']))
