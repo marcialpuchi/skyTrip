@@ -6,14 +6,28 @@ import itertools
 
 
 def possible_configs(cities_and_days,start_date,home_city):
+	'''
+	city_codes_with_days format
+	[("edi",4),("lon",3),("jfk",3)]
+
+	start_date format
+	datetime.datetime(year=2015,month=3,day=2)
+
+	start_date
+	'''
+	total_days = [x[1] for x in cities_and_days]
+	total_days = sum(total_days)
+	print total_days
 	configs = list(itertools.permutations(cities_and_days))
 	date = start_date
-	
+	end_date = start_date + datetime.timedelta(days = total_days)
 	flight_plans = {}
 	PermutationId = 1
 	for perm in configs:
 		date = start_date
 		flight_plans[PermutationId] = []
+		flight_plans[PermutationId].append({'leg': 1, 
+							'leg_data': {'Orig': home_city,'Date':start_date, 'Dest':perm[0][0]}})
 		i = 1
 		while i < len(perm):
 			timedelta = datetime.timedelta(days = perm[i][1])
@@ -22,10 +36,11 @@ def possible_configs(cities_and_days,start_date,home_city):
 			flight_plans[PermutationId].append({'leg': i+1, 
 							'leg_data': {'Orig': perm[i-1][0],'Date':date, 'Dest':perm[i][0]}})
 			i +=1
-
-		flight_plans[PermutationId].append({'leg': 1, 
-							'leg_data': {'Orig': home_city,'Date':start_date, 'Dest':perm[0][0]}})
-		PermutationId +=1	 
+		flight_plans[PermutationId].append({'leg': i, 
+							'leg_data': {'Orig': perm[i-1][0],'Date':end_date, 'Dest':home_city}})
+		
+		PermutationId +=1
+	print flight_plans	 
 	return flight_plans
 		
 def date_to_string(date_object,include_day=False):
@@ -68,7 +83,7 @@ def get_price_for_each_plan(flight_data,flight_plans,start_date):
 				carrier_for_leg = data[orig][dest][date]['Airlines']
 				price_for_plan += price_for_leg
 				legName = 'Leg' + str(leg_num)
-				current_plan[routeName].append({legName:leg,'LegPrice':price_for_leg,'Carrier':carrier_for_leg})
+				current_plan[routeName].append({'Leg':leg,'LegPrice':price_for_leg,'Carrier':carrier_for_leg})
 				
 			except KeyError:
 				print "Error in leg"
