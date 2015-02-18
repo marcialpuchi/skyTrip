@@ -42,14 +42,15 @@ Cached data
 
 
 def fetch_prices(orig,dest,date,date2):
-	input_from = orig+ "/"
-   	input_to = dest+ "/"
-   	date_from = date #+ "/"
-   	date_to   =""# date2
-   	url = SKYSCANNER_URL+ input_from + input_to + date_from+ date_to + "?apikey=" + apiKey
-   	print url
-   	data= json.load(urllib2.urlopen(url))
-   	return data
+  print orig,dest,date
+  input_from = orig+ "/"
+  input_to = dest+ "/"
+  date_from = date #+ "/"
+  date_to   =""# date2
+  url = SKYSCANNER_URL+ input_from + input_to + date_from+ date_to + "?apikey=" + apiKey
+  print url
+  data= json.load(urllib2.urlopen(url))
+  return data
 
 
 def json_to_manageable(json_file):
@@ -153,8 +154,6 @@ def create_session_and_get_url(place_id_from, place_id_to, date):
 
 	
 def fetch_live_prices(orig,dest,date):
-	print orig,dest,date
-
 	followUrl = create_session_and_get_url(orig,dest,date)
 	new_url = followUrl+ "?apiKey=" + apiKey
 	#headers
