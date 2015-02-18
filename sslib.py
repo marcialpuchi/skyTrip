@@ -217,8 +217,8 @@ def live_to_json(json_file):
 
 
 def get_live_prices_for_route(route):
-	key = route['Routes'][0].keys()[0]
-	list_of_legs = route['Routes'][0][key]
+	key = route.keys()[0]
+	list_of_legs = route[key]
 	
 	
 	to_get_live = []

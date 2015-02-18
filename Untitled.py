@@ -5,16 +5,62 @@ import sslib
 import json
 import prob
 import datetime
-
+sample_route={
+      "Route3": [
+        {
+          "LegPrice": 179,
+          "Carrier": [
+            "British Airways"
+          ],
+          "Leg": {
+            "leg_data": {
+              "leg": 1,
+              "Date": "2015-03-02",
+              "Dest": "lhr",
+              "Orig": "edi"
+            }
+          }
+        },
+        {
+          "LegPrice": 89,
+          "Carrier": [
+            "Ukraine International"
+          ],
+          "Leg": {
+            "leg_data": {
+              "Date": "2015-03-05",
+              "Dest": "lhr",
+              "Orig": "cdg"
+            },
+            "leg": 2
+          }
+        },
+        {
+          "LegPrice": 368,
+          "Carrier": [
+            "Norwegian"
+          ],
+          "Leg": {
+            "leg_data": {
+              "Date": "2015-03-08",
+              "Dest": "edi",
+              "Orig": "stn"
+            },
+            "leg": 3
+          }
+        }
+      ],
+      "Cost": 636
+    }
 
 @app.route('/')
 def index():
 	return app.send_static_file("index.html")
 
-@app.route("/get_result", methods=["POST"])
+@app.route("/get_route_live", methods=["GET","POST"])
 def asdad():
-	print request.form[0]
-	return 'sdfsdd'
+	results = sslib.get_live_prices_for_route(sample_route)
+	return str(results)
 
 @app.route("/get_results", methods=["GET","POST"])
 def asdab():
