@@ -5,7 +5,7 @@ import itertools
 
 
 
-def possible_configs(cities_and_days,start_date):
+def possible_configs(cities_and_days,start_date,home_city):
 	configs = list(itertools.permutations(cities_and_days))
 	date = start_date
 	
@@ -18,8 +18,13 @@ def possible_configs(cities_and_days,start_date):
 		while i < len(perm):
 			timedelta = datetime.timedelta(days = perm[i][1])
 			date = date+timedelta
-			flight_plans[PermutationId].append({'Orig': perm[i-1][0],'Date':date, 'Dest':perm[i][0]})
+			legName = 'leg' + str(i+1)
+			flight_plans[PermutationId].append({'leg': i+1, 
+							'leg_data': {'Orig': perm[i-1][0],'Date':date, 'Dest':perm[i][0]}})
 			i +=1
+
+		flight_plans[PermutationId].append({'leg': 1, 
+							'leg_data': {'Orig': home_city,'Date':start_date, 'Dest':perm[0][0]}})
 		PermutationId +=1	 
 	return flight_plans
 		
@@ -39,7 +44,11 @@ def date_to_string(date_object,include_day=False):
 	return date_string
 
 
-def get_price_for_each_plan(flight_data,flight_plans):
+def get_flights_from_to_home(start_date):
+	pass 
+
+
+def get_price_for_each_plan(flight_data,flight_plans,start_date):
 	flight_plans_update = {'Routes':[]}
 	data = flight_data
 	for k in flight_plans:
@@ -47,22 +56,32 @@ def get_price_for_each_plan(flight_data,flight_plans):
 		price_for_plan = 0
 		routeName = "Route" + str(k)
 		current_plan = {routeName:[]}
-		success = False
+		success = True
+		leg_num = 1
 		for leg in plan:
-			orig = leg['Orig']
-			date = date_to_string(leg['Date'],True)
-			dest = leg['Dest']
+			orig = leg['leg_data']['Orig']
+			date = date_to_string(leg['leg_data']['Date'],True)
+			dest = leg['leg_data']['Dest']
+			leg['leg_data']['Date'] = date
 			try:
 				price_for_leg = data[orig][dest][date]["Price"]
 				carrier_for_leg = data[orig][dest][date]['Airlines']
 				price_for_plan += price_for_leg
-				current_plan[routeName].append({'Leg':leg,'LegPrice':price_for_leg,'Carrier':carrier_for_leg})
-				success = True
+				legName = 'Leg' + str(leg_num)
+				current_plan[routeName].append({legName:leg,'LegPrice':price_for_leg,'Carrier':carrier_for_leg})
+				
 			except KeyError:
+				print "Error in leg"
+				current_plan[routeName].append({'EEEERRRORRRRRRRR':'RRERE'})
 				success = False
+			leg_num += 1
+			current_plan['Cost'] = price_for_plan
+		'''
 
+		for each plan add the cost of 
+		'''
 		if success:	
-			flight_plans_update['Routes'].append((current_plan,price_for_plan))
+			flight_plans_update['Routes'].append(current_plan)
 
 	return flight_plans_update
 
@@ -92,7 +111,7 @@ def get_required_flight_data(start_date,end_date,city_codes):
 
 x = [("edi",4),("lon",3),("jfk",3)]
 y = datetime.datetime(year=2015,month=3,day=2)
-def test(city_codes_with_days,start_date):
+def test(city_codes_with_days,start_date,home_city):
 	'''
 	city_codes_with_days format
 	[("edi",4),("lon",3),("jfk",3)]
@@ -105,9 +124,10 @@ def test(city_codes_with_days,start_date):
 	start = start_date
 	end = datetime.datetime(year=2015,month=3,day=12)
 	city_codes = [y[0] for y in city_codes_with_days]
+	city_codes.append(home_city)
 	flight_data = get_required_flight_data(start,end,city_codes)
-	flight_plans = possible_configs(city_codes_with_days,start)
-	x = get_price_for_each_plan(flight_data,flight_plans)
+	flight_plans = possible_configs(city_codes_with_days,start,home_city)
+	x = get_price_for_each_plan(flight_data,flight_plans,start)
 	return x
 
 

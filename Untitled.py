@@ -32,7 +32,8 @@ def asdad():
 			{'CityId': 'lon', 'Days': 3},
 			{'CityId': 'lca','Days': 4},
 			{'CityId': 'jfk','Days': 3}
-			],	
+			],
+	'Home_city':'edi',	
 	'Start_date':'2015-03-02' 
 	}
 
@@ -49,9 +50,10 @@ def asdad():
 	year = int(sample_json['Start_date'][:4])
 	month = int(sample_json['Start_date'][5:7])
 	day = int(sample_json['Start_date'][-2:])
+	homecity = sample_json['Home_city']
 	print year,month,day
 	start_date = datetime.date(year,month,day)
-	return str(prob.test(city_list,start_date))
+	return str(prob.test(city_list,start_date,homecity))
 
 
 
