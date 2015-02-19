@@ -73,21 +73,20 @@ def asdab():
   daysD3=int(request.form['days_D3'])
   date=request.form['date']
   origin=request.form['origin'].split('(')[1].split(')')[0]
+  '''
   sample_json = {'Cities':[
-  	{'CityId': d1, 'Days':daysD1},
-  	{'CityId': d2,'Days':daysD2},
-  	{'CityId': d3,'Days':daysD3}
+  	{'CityId': 'EDI', 'Days':3},
+  	{'CityId': 'JFK','Days':4},
+  	{'CityId': 'AMS','Days':5}
   	],
-  'Home_city':origin,	
+  'Home_city':'SFO',	
   'Start_date':'2015-04-10'
 
   }
-  '''
+
   print 'Hello there!'
   print request.form
-  #x =  request.json
-  
-  '''
+
   city_list = []
   for city in sample_json['Cities']:
    city_list.append((city['CityId'],city['Days']))
@@ -98,10 +97,11 @@ def asdab():
   homecity = sample_json['Home_city']
   #print year,month,day
   start_date = datetime.date(year,month,day)
-  return str(prob.test(city_list,start_date,homecity))
-  '''
-  return jsonify({'Route':3})
-
+  
+  
+  return jsonify(prob.test(city_list,start_date,homecity))
+  
+  
 
 
 if __name__ == "__main__":
