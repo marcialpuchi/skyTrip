@@ -79,7 +79,7 @@ def get_price_for_each_plan(flight_data,flight_plans,start_date):
 		plan = flight_plans[k]
 		price_for_plan = 0
 		routeName = "Route" + str(k)
-		current_plan = {routeName:[]}
+		current_plan = {'Route':[]}
 		success = True
 		leg_num = 1
 		for leg in plan:
