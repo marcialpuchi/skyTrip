@@ -5,6 +5,7 @@ import sslib
 import json
 import prob
 import datetime
+from operator import itemgetter
 sample_route={
       "Route3": [
         {
@@ -63,43 +64,61 @@ def asdad():
 	return str(results)
 
 @app.route("/get_results", methods=["GET","POST"])
-def asdab():
+def get_cached():
   
-  date=request.form['date']
-  origin=request.form['origin'].split('(')[1].split(')')[0]
-  sample_json = {'Cities':[],
-  'Home_city':origin,	
-  'Start_date':date
+	date=request.form['date']
+	origin=request.form['origin'].split('(')[1].split(')')[0]
+	sample_json = {'Cities':[],
+	'Home_city':origin,	
+	'Start_date':date
 	}
 
-  for k,v in request.form.iteritems():
-  	if k[0] == "D":
-  		days_for_dest = int(request.form['days_D'+ str(k[1])])
-  		sample_json['Cities'].append({'CityId':v.split('(')[1].split(')')[0], 'Days': days_for_dest})
+	for k,v in request.form.iteritems():
+		if k[0] == "D":
+			days_for_dest = int(request.form['days_D'+ str(k[1])])
+			sample_json['Cities'].append({'CityId':v.split('(')[1].split(')')[0], 'Days': days_for_dest})
 
+	city_list = []
+	for city in sample_json['Cities']:
+		city_list.append((city['CityId'],city['Days']))
 
-
-  
-
-  print 'Hello there!'
-  
-
-  city_list = []
-  for city in sample_json['Cities']:
-   city_list.append((city['CityId'],city['Days']))
-
-  year = int(sample_json['Start_date'][:4])
-  month = int(sample_json['Start_date'][5:7])
-  day = int(sample_json['Start_date'][-2:])
-  homecity = sample_json['Home_city']
-  #print year,month,day
-  start_date = datetime.date(year,month,day)
-  
-  print city_list
-  return jsonify(prob.test(city_list,start_date,homecity))
+	year = int(sample_json['Start_date'][:4])
+	month = int(sample_json['Start_date'][5:7])
+	day = int(sample_json['Start_date'][-2:])
+	homecity = sample_json['Home_city']
+	start_date = datetime.date(year,month,day)
+	sorted_json = prob.go_fetch(city_list,start_date,homecity)
+	sorted_json['Routes'] = sorted(sorted_json['Routes'],key=itemgetter('Cost'))
+	return jsonify(sorted_json)
   
   
+@app.route("/get_results_flex", methods=["GET","POST"])
+def get_cached_flex():
+  
+	date=request.form['date']
+	origin=request.form['origin'].split('(')[1].split(')')[0]
+	sample_json = {'Cities':[],
+	'Home_city':origin,	
+	'Start_date':date
+	}
 
+	for k,v in request.form.iteritems():
+		if k[0] == "D":
+			days_for_dest = int(request.form['days_D'+ str(k[1])])
+			sample_json['Cities'].append({'CityId':v.split('(')[1].split(')')[0], 'Days': days_for_dest})
+
+	city_list = []
+	for city in sample_json['Cities']:
+		city_list.append((city['CityId'],city['Days']))
+
+	year = int(sample_json['Start_date'][:4])
+	month = int(sample_json['Start_date'][5:7])
+	day = int(sample_json['Start_date'][-2:])
+	homecity = sample_json['Home_city']
+	start_date = datetime.date(year,month,day)
+	sorted_json = prob.go_fetch_flex(city_list,start_date,homecity)
+	sorted_json['Routes'] = sorted(sorted_json['Routes'],key=itemgetter('Cost'))
+	return jsonify(sorted_json)
 
 if __name__ == "__main__":
 	app.debug = True

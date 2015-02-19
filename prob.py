@@ -1,11 +1,12 @@
 import sslib
 import datetime
 import itertools
+from math import factorial
 'takes list in form below'
 
 
 
-def possible_configs(cities_and_days,start_date,home_city):
+def possible_config(cities_and_days,start_date,home_city):
 	'''
 	city_codes_with_days format
 	[("edi",4),("lon",3),("jfk",3)]
@@ -51,6 +52,30 @@ def possible_configs(cities_and_days,start_date,home_city):
 		PermutationId +=1
 	print flight_plans	 
 	return flight_plans
+
+
+
+
+def possible_days(cities_and_days):
+	listOfPossibleDays=[]
+	for (city,day) in cities_and_days:
+		listOfPossibleDays.append([(city,day-1),(city,day),(city,day+1)])
+	return list(itertools.product(*listOfPossibleDays))
+
+
+def possible_configs(cities_and_days,start_date,home_city):
+	possibleDays=possible_days(cities_and_days)
+	flight_plans={}
+	size_of_one_combo=factorial(len(cities_and_days))
+	for i in range(0,len(possibleDays)):
+		flight_plans[i]=possible_config(possibleDays[i],start_date,home_city)
+	for i in flight_plans.keys():
+		for j in flight_plans[i].keys():
+			flight_plans[i][j+size_of_one_combo*i]=flight_plans[i].pop(j)
+	all_plans={}
+	for i in flight_plans:
+		all_plans.update(flight_plans[i].items())
+	return all_plans
 		
 def date_to_string(date_object,include_day=False):
 	year = str(date_object.year)
@@ -97,7 +122,6 @@ def get_price_for_each_plan(flight_data,flight_plans,start_date):
 				
 			except KeyError:
 				print "Error in leg"
-				current_plan[routeName].append({'EEEERRRORRRRRRRR':'RRERE'})
 				success = False
 			leg_num += 1
 			current_plan['Cost'] = price_for_plan
@@ -136,7 +160,28 @@ def get_required_flight_data(start_date,end_date,city_codes):
 
 x = [("edi",4),("lon",3),("jfk",3)]
 y = datetime.datetime(year=2015,month=3,day=2)
-def test(city_codes_with_days,start_date,home_city):
+def go_fetch(city_codes_with_days,start_date,home_city):
+	'''
+	city_codes_with_days format
+	[("edi",4),("lon",3),("jfk",3)]
+
+	start_date format
+	datetime.datetime(year=2015,month=3,day=2)
+
+	start_date
+	'''
+	start = start_date
+	end = datetime.datetime(year=2015,month=3,day=12)
+	city_codes = [y[0] for y in city_codes_with_days]
+	city_codes.append(home_city)
+	flight_data = get_required_flight_data(start,end,city_codes)
+	flight_plans = possible_config(city_codes_with_days,start,home_city)
+	x = get_price_for_each_plan(flight_data,flight_plans,start)
+	return x
+
+
+
+def go_fetch_flex(city_codes_with_days,start_date,home_city):
 	'''
 	city_codes_with_days format
 	[("edi",4),("lon",3),("jfk",3)]
@@ -154,6 +199,3 @@ def test(city_codes_with_days,start_date,home_city):
 	flight_plans = possible_configs(city_codes_with_days,start,home_city)
 	x = get_price_for_each_plan(flight_data,flight_plans,start)
 	return x
-
-
-
