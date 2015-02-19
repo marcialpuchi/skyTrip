@@ -65,27 +65,24 @@ def asdad():
 @app.route("/get_results", methods=["GET","POST"])
 def asdab():
   
-  d1 = request.form['D1'].split('(')[1].split(')')[0]
-  d2 = request.form['D2'].split('(')[1].split(')')[0]
-  d3 = request.form['D3'].split('(')[1].split(')')[0]
-  daysD1=int(request.form['days_D1'])
-  daysD2=int(request.form['days_D2'])
-  daysD3=int(request.form['days_D3'])
   date=request.form['date']
   origin=request.form['origin'].split('(')[1].split(')')[0]
-  
-  sample_json = {'Cities':[
-  	{'CityId': d1, 'Days':daysD1},
-  	{'CityId': d2, 'Days':daysD2},
-  	{'CityId': d3, 'Days':daysD3}
-  	],
+  sample_json = {'Cities':[],
   'Home_city':origin,	
   'Start_date':date
+	}
 
-  }
+  for k,v in request.form.iteritems():
+  	if k[0] == "D":
+  		days_for_dest = int(request.form['days_D'+ str(k[1])])
+  		sample_json['Cities'].append({'CityId':v.split('(')[1].split(')')[0], 'Days': days_for_dest})
+
+
+
+  
 
   print 'Hello there!'
-  print request.form['date']
+  
 
   city_list = []
   for city in sample_json['Cities']:
@@ -98,7 +95,7 @@ def asdab():
   #print year,month,day
   start_date = datetime.date(year,month,day)
   
-  
+  print city_list
   return jsonify(prob.test(city_list,start_date,homecity))
   
   
