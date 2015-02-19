@@ -75,14 +75,13 @@ def get_cached():
 	}
 	
 	for k,v in data.iteritems():
-		print k, v
 		if len(k)>6:
 			if k[-6:] == "[name]":
-				#days_for_dest = int(request.form[k[:-7]+ "['days']"])
-				sample_json['Cities'].append({'CityId':v.split('(')[1].split(')')[0], 'Days': 2})
+				dest = v.split('(')[1].split(')')[0]
+				days_key = k[:-6] + "[days]"
+				days_for_dest = int(data[days_key])
+				sample_json['Cities'].append({'CityId': dest, 'Days': days_for_dest})
 	
-
-
 	city_list = []
 	for city in sample_json['Cities']:
 		city_list.append((city['CityId'],city['Days']))
