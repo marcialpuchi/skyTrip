@@ -26,18 +26,27 @@ def possible_configs(cities_and_days,start_date,home_city):
 	for perm in configs:
 		date = start_date
 		flight_plans[PermutationId] = []
-		flight_plans[PermutationId].append({'leg': 1, 
-							'leg_data': {'Orig': home_city,'Date':start_date, 'Dest':perm[0][0]}})
+		flight_plans[PermutationId].append({
+											'leg': 1, 
+											'Orig': home_city,
+											'Date':start_date,
+											'Dest':perm[0][0]
+											}
+											)
 		i = 1
 		while i < len(perm):
 			timedelta = datetime.timedelta(days = perm[i][1])
 			date = date+timedelta
 			legName = 'leg' + str(i+1)
 			flight_plans[PermutationId].append({'leg': i+1, 
-							'leg_data': {'Orig': perm[i-1][0],'Date':date, 'Dest':perm[i][0]}})
+												'Orig': perm[i-1][0],
+												'Date':date,
+												'Dest':perm[i][0]})
 			i +=1
 		flight_plans[PermutationId].append({'leg': i, 
-							'leg_data': {'Orig': perm[i-1][0],'Date':end_date, 'Dest':home_city}})
+							'Orig': perm[i-1][0],
+							'Date':end_date,
+							'Dest':home_city})
 		
 		PermutationId +=1
 	print flight_plans	 
