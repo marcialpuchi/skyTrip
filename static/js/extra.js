@@ -94,6 +94,7 @@ var route = function(){
 	$.ajax({
 		type: "POST",
 		url: "/get_results",
+		dataType: "application/json",
 		data: data,
 		success: function(data){
 			var list = ''
