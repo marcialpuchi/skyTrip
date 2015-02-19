@@ -92,7 +92,8 @@ def get_price_for_each_plan(flight_data,flight_plans,start_date):
 				carrier_for_leg = data[orig][dest][date]['Airlines']
 				price_for_plan += price_for_leg
 				legName = 'Leg' + str(leg_num)
-				current_plan[routeName].append({'Leg':leg,'LegPrice':price_for_leg,'Carrier':carrier_for_leg})
+				#Numbered route names are available with routeName var
+				current_plan['Route'].append({'Leg':leg,'LegPrice':price_for_leg,'Carrier':carrier_for_leg})
 				
 			except KeyError:
 				print "Error in leg"
