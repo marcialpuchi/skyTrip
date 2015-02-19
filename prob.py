@@ -151,6 +151,7 @@ def get_required_flight_data(start_date,end_date,city_codes):
 	if start_date.month != end_date.month:
 		how_many = end_date.month - start_date.month
 		months = range(start_date.month+1,start_date.month+how_many+1)
+		print months
 		for x in months:
 			months_to_fetch.append(date_to_string(datetime.date(start_date.year,x,start_date.day)))
 
