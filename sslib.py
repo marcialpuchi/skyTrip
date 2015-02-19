@@ -42,13 +42,12 @@ Cached data
 
 
 def fetch_prices(orig,dest,date,date2):
-  print orig,dest,date
+  
   input_from = orig+ "/"
   input_to = dest+ "/"
   date_from = date #+ "/"
   date_to   =""# date2
   url = SKYSCANNER_URL+ input_from + input_to + date_from+ date_to + "?apikey=" + apiKey
-  print url
   data= json.load(urllib2.urlopen(url))
   return data
 
@@ -157,7 +156,6 @@ def fetch_live_prices(orig,dest,date):
 	followUrl = create_session_and_get_url(orig,dest,date)
 	new_url = followUrl+ "?apiKey=" + apiKey
 	#headers
-	print new_url
 	headers = {'Accept': 'application/json'}
 	response = urllib2.urlopen(new_url+'&stops=0')
 	data = response.read()
@@ -167,7 +165,6 @@ def fetch_live_prices(orig,dest,date):
 
 
 def live_to_json(json_file):
-	print json_file
 	carriers = json_file['Carriers']
 	itineraries = json_file['Itineraries']
 	agents = json_file['Agents']
@@ -227,7 +224,7 @@ def get_live_prices_for_route(route):
 
 	live_data = {'data':[],'TotalCost': 0}
 	for flight in to_get_live:
-		print flight
+
 		orig = flight['Orig']
 		dest = flight['Dest']
 		date = flight['Date']

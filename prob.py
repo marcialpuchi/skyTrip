@@ -151,12 +151,13 @@ def get_required_flight_data(start_date,end_date,city_codes):
 	if start_date.month != end_date.month:
 		how_many = end_date.month - start_date.month
 		months = range(start_date.month+1,start_date.month+how_many+1)
-		print months
+		
 		for x in months:
 			months_to_fetch.append(date_to_string(datetime.date(start_date.year,x,start_date.day)))
 
 	list_of_data = [sslib.fetch_for_month(city_codes,m) for m in months_to_fetch]
 	merged_data = merge_flight_data(list_of_data)
+	print merged_data
 	return merged_data
 
 x = [("edi",4),("lon",3),("jfk",3)]
@@ -172,7 +173,9 @@ def go_fetch(city_codes_with_days,start_date,home_city):
 	start_date
 	'''
 	start = start_date
-	end = datetime.datetime(year=2015,month=3,day=12)
+	total_days = [x[1] for x in city_codes_with_days]
+	total_days = sum(total_days)
+	end = start_date + datetime.timedelta(days = total_days)
 	city_codes = [y[0] for y in city_codes_with_days]
 	city_codes.append(home_city)
 	flight_data = get_required_flight_data(start,end,city_codes)
@@ -193,7 +196,9 @@ def go_fetch_flex(city_codes_with_days,start_date,home_city):
 	start_date
 	'''
 	start = start_date
-	end = datetime.datetime(year=2015,month=3,day=12)
+	total_days = [x[1] for x in city_codes_with_days]
+	total_days = sum(total_days)
+	end = start_date + datetime.timedelta(days = total_days)
 	city_codes = [y[0] for y in city_codes_with_days]
 	city_codes.append(home_city)
 	flight_data = get_required_flight_data(start,end,city_codes)
