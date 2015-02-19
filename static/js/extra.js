@@ -94,8 +94,10 @@ var route = function(){
 	$.ajax({
 		type: "POST",
 		url: "/get_results",
-		dataType: "application/json",
-		data: data,
+    	data: JSON.stringify(data),
+    	contentType: 'application/json; charset=utf-8',
+    	dataType: 'json',
+    	async: true,
 		success: function(data){
 			var list = ''
 

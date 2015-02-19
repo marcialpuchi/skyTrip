@@ -65,15 +65,21 @@ def asdad():
 
 @app.route("/get_results", methods=["GET","POST"])
 def get_cached():
-	data = request.form
-	date=request.form['date']
-	origin=request.form['origin'].split('(')[1].split(')')[0]
+	print "JSON"
+	print request.get_json()
+	data = request.json
+	date=data['date']
+	origin=data['origin'].split('(')[1].split(')')[0]
 
 	sample_json = {'Cities':[],
 	'Home_city':origin,	
 	'Start_date':date
 	}
-	
+	for d in data['destinations']:
+		dest = d['name'].split('(')[1].split(')')[0]
+		days_for_dest = int(d['days'])
+		sample_json['Cities'].append({'CityId': dest, 'Days': days_for_dest})
+	'''
 	for k,v in data.iteritems():
 		if len(k)>6:
 			if k[-6:] == "[name]":
@@ -81,6 +87,7 @@ def get_cached():
 				days_key = k[:-6] + "[days]"
 				days_for_dest = int(data[days_key])
 				sample_json['Cities'].append({'CityId': dest, 'Days': days_for_dest})
+	'''
 	
 	city_list = []
 	for city in sample_json['Cities']:
