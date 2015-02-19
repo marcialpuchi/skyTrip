@@ -54,7 +54,6 @@ var search = function(q, list, first ){
 	    	$(list).html(elements)
 	    	
 	    	$(list).find('li').on('click', function(e){
-	    		// e.PreventDefault();
 	    		selected = $(this).find('a')[0].text
 	    		$(list).parent().find('input').val(selected)
 	    		$(list).css('display', 'none')
@@ -69,6 +68,43 @@ var search = function(q, list, first ){
 	    }
 	});
 }
+
+
+
+var route = function(){
+	var data = {}
+
+	origin = $('.origin input[name=origin]').val();
+	date = $('.origin input[name=date]').val();
+	destinations = []
+	
+	$.each($('.destinations>ul>li'), function(e){
+		destinations.push({
+			name: $(this).find('input').val(),
+			days: parseInt($(this).find('select').val())
+		})
+	});
+
+	data =  {
+		'origin': origin,
+		'date': date,
+		'destinations': destinations
+	}
+
+	$.ajax({
+		type: "POST",
+		url: "/get_results",
+		data: data,
+		success: function(data){
+			console.log(data)
+		},
+		error: function(data){
+			console.log('Error!')
+		}
+	});
+
+}
+
 
 
 

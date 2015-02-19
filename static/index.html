@@ -79,7 +79,7 @@
                         <h3>Where do you want to go today?</h3>
                         <hr class="intro-divider">
                         
-                        <form class="form-horizontal" action="/get_results" method="POST">
+                        <div class="form-horizontal">
 
                             <div class="origin col-sm-12" style="margin-bottom: 10px; display:inline-block;">
 
@@ -103,8 +103,8 @@
                                 <ul style="position: relative">
                                     <li class="col-sm-4">
                                     
-                                        <input type="text" class="form-control col-sm-8" placeholder="Destination ..." style="margin-right: 10px" name="D1">
-                                        <select class="form-control col-sm-3" name="days_D1">
+                                        <input type="text" class="form-control col-sm-8" placeholder="Destination ..." style="margin-right: 10px">
+                                        <select class="form-control col-sm-3">
                                             <option value="">Days</option>
                                             <option value="1">1</option>
                                             <option value="2">2</option>
@@ -120,8 +120,8 @@
 
                                     <li class="col-sm-4">
                                     
-                                        <input type="text" class="form-control col-sm-8" placeholder="Destination ..." style="margin-right: 10px" name="D2">
-                                        <select class="form-control col-sm-3" name="days_D2">
+                                        <input type="text" class="form-control col-sm-8" placeholder="Destination ..." style="margin-right: 10px">
+                                        <select class="form-control col-sm-3">
                                             <option value="">Days</option>
                                             <option value="1">1</option>
                                             <option value="2">2</option>
@@ -137,8 +137,8 @@
 
                                     <li class="col-sm-4">
                                     
-                                        <input type="text" class="form-control col-sm-8" placeholder="Destination ..." style="margin-right: 10px" name="D3">
-                                        <select class="form-control col-sm-3" name="days_D3">
+                                        <input type="text" class="form-control col-sm-8" placeholder="Destination ..." style="margin-right: 10px">
+                                        <select class="form-control col-sm-3">
                                             <option value="">Days</option>
                                             <option value="1">1</option>
                                             <option value="2">2</option>
@@ -158,12 +158,12 @@
                             
                             <div class="col-sm-6 col-sm-offset-3">
                                 
-                                <button type="submit" class="btn btn-primary col-sm-4">Search!</button>
+                                <button class="btn btn-primary col-sm-4" onclick="route();">Search!</button>
                                 <button class="btn btn-danger col-sm-4 col-sm-offset-4">Clear</button>
                                 
                             </div>
                             
-                        </form>
+                        </div>
     
                     </div>
                 </div>
@@ -180,6 +180,11 @@
     <div id="map" class="map content-section-b"></div>
     <!-- /Map -->
 
+    <!-- /Results -->
+    <a  name="Results"></a>
+    <div id="results" class="results content-section-b"></div>
+    <!-- /Map -->
+    
     <!-- Page Content -->
 
 	<a  name="services"></a>
