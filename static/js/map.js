@@ -1,7 +1,7 @@
 var geocoder;
 var map;
 var markers = [];
-
+var positions = [];
 
 
 function initialize() {
@@ -114,38 +114,58 @@ function initialize() {
 
 function codeAddress() {
 
-	dropPin(map,'Edinburgh');
+	//dropPin(map,'Edinburgh',0);	
 
 }
 
-var dropPin = function( map , place ){
+var dropPin = function( map , place, position ){
 	
+				
 	geocoder.geocode( { 'address': place}, function(results, status) {
 		if (status == google.maps.GeocoderStatus.OK) {
 			map.setCenter(results[0].geometry.location);
+			
+			var pos = -1;
+	
+			for(var i = 0 ; i < markers.length ; i ++ ){
+				if(positions[i] ==  position){
+					pos = i;		
+					markers[pos].setMap(null);
+				}
+			}			
+		
 			var image = new google.maps.MarkerImage("img/location-pin.png", null, null, null, new google.maps.Size(32, 32));
 			var beachMarker = new google.maps.Marker({
 				map: map,
 				icon: image,
 				position: results[0].geometry.location
 			});
+				
+			if(pos>=0){
+				markers[pos] = beachMarker;
+				positions[pos] = position;		
+			}else{		
+				markers.push(beachMarker);
+				positions.push(position);	
+			}			
 
-			markers.push(beachMarker);
-		
+	
 		} else {
 			alert('Geocode was not successful for the following reason: ' + status);
 		}
+
+		 var bounds = new google.maps.LatLngBounds();
+    
+      for (var i = 0; i < markers.length ; i++) {
+            bounds.extend( markers[i].getPosition() );
+      }
+  
+
+      map.fitBounds(bounds);
+		
 	});
 
-	
-	var bounds = new google.maps.LatLngBounds();
-    
-    for (var i = 0; i < markers.length ; i++) {
-            bounds.extend( markers[i].getPosition() );
-
-    };
-
-    map.fitBounds(bounds);
+     
 
 }
 

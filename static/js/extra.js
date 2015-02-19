@@ -6,7 +6,7 @@ $(function(){
 		
 		if ($(this).val() !== ''){
 			$(ul).css('display','block')
-			search($(this).val(), ul)
+			search($(this).val(), ul , 1)
 
 		}else{
 			$(ul).html('')
@@ -20,7 +20,7 @@ $(function(){
 		
 		if ($(this).val() !== ''){
 			$(ul).css('display','block')
-			search($(this).val(), ul)
+			search($(this).val(), ul , 0 )
 
 		}else{
 			$(ul).html('')
@@ -31,7 +31,7 @@ $(function(){
 
 
 
-var search = function(q, list){
+var search = function(q, list, first ){
 
 	$.ajax({
 	   	url: 'http://partners.api.skyscanner.net/apiservices/xd/autosuggest/v1.0/GB/GBP/en-GB',
@@ -59,6 +59,11 @@ var search = function(q, list){
 	    		$(list).parent().find('input').val(selected)
 	    		$(list).css('display', 'none')
 	    		
+	    		if(first == 1){
+	    			dropPin(map,selected,50)
+	    		}else{
+	    			dropPin(map,selected,$(list).parent().index())
+				}
 
 	    	})
 	    }
