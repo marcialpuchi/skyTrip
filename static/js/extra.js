@@ -96,7 +96,23 @@ var route = function(){
 		url: "/get_results",
 		data: data,
 		success: function(data){
-			console.log(data)
+			var list = ''
+
+			$.each(data.Routes, function(e){
+				var cost = '<td>' + e.Price + '</td>'
+				var stops = ''
+
+				$.each(e.Route, function(a){
+					stops += '<td>' + a.Orig + ' -> ' + a.Dest + '</td>'
+
+				})
+
+				list += '<tr>' + stops + cost + '</tr>'
+
+			})
+
+			$('#results table tbody').html(list)
+
 		},
 		error: function(data){
 			console.log('Error!')
@@ -104,9 +120,6 @@ var route = function(){
 	});
 
 }
-
-
-
 
 
 var textChange = function(elements, target){
