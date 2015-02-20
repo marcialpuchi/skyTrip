@@ -95,6 +95,16 @@ var route = function(){
 
 	$('.best').css('display', 'none')
 
+	if ($('.flex label.static').hasClass('active')){
+		static_dates(data)
+	}else{
+		flex_dates(data)
+	}
+
+}
+
+
+var static_dates = function(data){
 	$.ajax({
 		type: "POST",
 		url: "/get_results",
@@ -117,7 +127,7 @@ var route = function(){
 				var connect = []
 
 				$.each(this.Route, function(e){
-					stops += '<td>' +  this.Leg.Orig + ' &rarr; ' + this.Leg.Dest + '</td>'
+					stops += '<td>' +  this.Leg.Orig + ' &rarr; ' + this.Leg.Dest + '<br/>' + this.Leg.Date + '</td>'
 
 					connect.push({
 						trip: this.Leg.Orig + ' &rarr; ' + this.Leg.Dest,
@@ -152,9 +162,67 @@ var route = function(){
 			console.log('Error!')
 		}
 	});
-
 }
 
+var flex_dates = function(data){
+	$.ajax({
+		type: "POST",
+		url: "/get_results_flex",
+    	data: JSON.stringify(data),
+    	contentType: 'application/json; charset=utf-8',
+    	dataType: 'json',
+    	async: true,
+		success: function(data){
+
+			if (data.Routes == 0){
+				alert("No Routes available :(")
+				return true;
+			}
+
+			var list = ''
+
+			$.each(data.Routes, function(e){
+				var cost = '<td>' + this.Cost + '</td>'
+				var stops = ''
+				var connect = []
+
+				$.each(this.Route, function(e){
+					stops += '<td>' +  this.Leg.Orig + ' &rarr; ' + this.Leg.Dest + '<br/>' + this.Leg.Date + '</td>'
+
+					connect.push({
+						trip: this.Leg.Orig + ' &rarr; ' + this.Leg.Dest,
+						cost: this.LegPrice,
+						airline: this.Carrier
+					})
+
+				})
+
+				list += '<tr><td>'+ (e+1) + '</td>' + stops + cost + '</tr>'
+
+				if (e < 3){
+
+					$('#best-' + (e+1) + ' .pricing-rate').html('<sup>£</sup>' + cost)
+					$('#best-' + (e+1) + ' .pricing-list ul').html('')
+
+					$.each(connect, function(){
+						$('#best-' + (e+1) + ' .pricing-list ul').append('<li><i class="fa fa-plane"></i>' + this.trip + '<span class="pull-right">' + this.cost + '</span></li>')
+
+					})
+
+					$('#best-' + (e+1)).css('display', 'inline-block')
+				}
+
+			})
+
+			$('#results table tbody').html(list)
+			$('.results').css('display', 'block')
+
+		},
+		error: function(data){
+			console.log('Error!')
+		}
+	});
+}
 
 var textChange = function(elements, target){
 
