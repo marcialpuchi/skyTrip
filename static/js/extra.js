@@ -228,9 +228,11 @@ var live_price = function(element){
 
 	console.log(element)
 	data = []
-	$(element).children('td:not(:first-child):not(:last-child)').each(function(){
-		//data.push(this.text())
+	$.each($(element).children('td:not(:first-child):not(:last-child)'),function(){
+		data.push(this.textContent.split(' ')[0])
 	});
+
+	trace_route(data)
 
 	$.ajax({
 		type: "POST",
