@@ -69,7 +69,6 @@ def json_to_manageable(json_file):
 	for place in places:
 		m_places[place['PlaceId']] = (place['IataCode'],place['Name'],place['CountryName'])
 
-
 	'Quotes Dictionary'
 	m_quotes = {}
 	for quote in quotes:
@@ -153,14 +152,15 @@ def create_session_and_get_url(place_id_from, place_id_to, date):
 
 	
 def fetch_live_prices(orig,dest,date):
-	followUrl = create_session_and_get_url(orig,dest,date)
-	new_url = followUrl+ "?apiKey=" + apiKey
-	#headers
-	headers = {'Accept': 'application/json'}
-	response = urllib2.urlopen(new_url+'&stops=0')
-	data = response.read()
-	
-	return json.loads(data)
+  followUrl = create_session_and_get_url(orig,dest,date)
+  new_url = followUrl+ "?apiKey=" + apiKey
+  #headers
+  headers = {'Accept': 'application/json'}
+  response = urllib2.urlopen(new_url+'&stops=0')
+  data = response.read()
+  f = open("asd.txt",'w')
+  f.write(data)
+  return json.loads(data)
 
 
 
@@ -181,7 +181,7 @@ def live_to_json(json_file):
 	m_places = {}
 	for place in places:
 		m_places[place['Id']] = place['Name']
-
+    
 	m_agents = {}
 	for agent in agents:
 		m_places[agent['Id']] = agent['Name']
@@ -214,25 +214,30 @@ def live_to_json(json_file):
 
 
 def get_live_prices_for_route(route):
-	key = route.keys()[0]
-	list_of_legs = route[key]
-	
-	
-	to_get_live = []
-	for leg in list_of_legs:
-		to_get_live.append(leg['Leg']['leg_data'])
+  key = route.keys()[0]
+  list_of_legs = route[key]
 
-	live_data = {'data':[],'TotalCost': 0}
-	for flight in to_get_live:
+  '''
+  to_get_live = []
+  for leg in list_of_legs:
+    print leg
+    to_get_live.append(leg['Leg']['leg_data'])
+  '''
+  live_data = {'data':[],'TotalCost': 0}
+  for leg in list_of_legs:
+    print leg
+    flight = leg['Leg']
+    print flight
+    orig = flight['Orig']
+    dest = flight['Dest']
+    date = flight['Date']
+    live_d_json = live_to_json(fetch_live_prices(orig,dest,date))
+    live_data['TotalCost'] += live_d_json['price']
+    live_data['data'].append(live_d_json)
 
-		orig = flight['Orig']
-		dest = flight['Dest']
-		date = flight['Date']
-		live_d_json = live_to_json(fetch_live_prices(orig,dest,date))
-		live_data['TotalCost'] += live_d_json['price']
-		live_data['data'].append(live_d_json)
+  return live_data
 
-	return live_data
+
 
 
 
