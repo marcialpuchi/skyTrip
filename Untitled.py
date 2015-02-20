@@ -60,8 +60,13 @@ def index():
 
 @app.route("/get_route_live", methods=["GET","POST"])
 def asdad():
-	results = sslib.get_live_prices_for_route(sample_route)
-	return str(results)
+	
+	if request.method == 'POST':
+		results = sslib.get_live_prices_for_route(request.json)
+	else:
+		print "CALLED WITH GET/ FETCHING PRICES FOR edi stn lhr cdg"
+		results = sslib.get_live_prices_for_route(sample_route)
+	return jsonify(results)
 
 @app.route("/get_results", methods=["GET","POST"])
 def get_cached():
