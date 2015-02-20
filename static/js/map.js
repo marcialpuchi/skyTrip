@@ -100,6 +100,7 @@ function initialize() {
 		scrollwheel: false,
 	    panControl: false,
 	    scaleControl: false,
+	    center:new google.maps.LatLng(51.508742,-0.120850),
 		mapTypeControlOptions: {
 		  mapTypeIds: []
 		}
@@ -109,14 +110,10 @@ function initialize() {
 	map.mapTypes.set('map_style', styledMap);
 	map.setMapTypeId('map_style');				
 	
-	codeAddress();
+	// map.setCenter()
 }
 
-function codeAddress() {
 
-	//dropPin(map,'Edinburgh',0);	
-
-}
 
 var dropPin = function( map , place, position ){
 	

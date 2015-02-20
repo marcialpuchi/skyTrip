@@ -72,6 +72,8 @@ var search = function(q, list, first ){
 
 
 var route = function(){
+	$.scrollTo('#map', {duration: 500,durationMode: 'all'})
+
 	var data = {}
 
 	origin = $('.origin input[name=origin]').val();
@@ -90,6 +92,8 @@ var route = function(){
 		'date': date,
 		'destinations': destinations
 	}
+
+	$('.best').css('display', 'none')
 
 	$.ajax({
 		type: "POST",
@@ -110,17 +114,38 @@ var route = function(){
 			$.each(data.Routes, function(e){
 				var cost = '<td>' + this.Cost + '</td>'
 				var stops = ''
+				var connect = []
 
 				$.each(this.Route, function(e){
 					stops += '<td>' +  this.Leg.Orig + ' &rarr; ' + this.Leg.Dest + '</td>'
+
+					connect.push({
+						trip: this.Leg.Orig + ' &rarr; ' + this.Leg.Dest,
+						cost: this.LegPrice,
+						airline: this.Carrier
+					})
 
 				})
 
 				list += '<tr><td>'+ (e+1) + '</td>' + stops + cost + '</tr>'
 
+				if (e < 3){
+
+					$('#best-' + (e+1) + ' .pricing-rate').html('<sup>£</sup>' + cost)
+					$('#best-' + (e+1) + ' .pricing-list ul').html('')
+
+					$.each(connect, function(){
+						$('#best-' + (e+1) + ' .pricing-list ul').append('<li><i class="fa fa-plane"></i>' + this.trip + '<span class="pull-right">' + this.cost + '</span></li>')
+
+					})
+
+					$('#best-' + (e+1)).css('display', 'inline-block')
+				}
+
 			})
 
 			$('#results table tbody').html(list)
+			$('.results').css('display', 'block')
 
 		},
 		error: function(data){

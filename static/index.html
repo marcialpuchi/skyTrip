@@ -23,6 +23,7 @@
     <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="js/datepicker/css/datepicker.css">
 
+    <link href="css/routes.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/extra.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -184,7 +185,67 @@
     <!-- /Results -->
     <a  name="Results"></a>
     <div id="results" class="results content-section-b">
-        <div class="container">
+        <div id="pricing-table" class="container">
+            <div class="row row-centered">
+                <div class="pricing">
+
+                    <div id="best-1" class="best col-md-4 col-sm-12 col-xs-12 col-centered">
+                        <div class="pricing-table">
+                            <div class="pricing-header">
+                                <p class="pricing-title">Route 1</p>
+                                <p class="pricing-rate"></p>
+                                <!-- <a href="#" class="btn btn-custom">And Get Free Month</a> -->
+                            </div>
+
+                            <div class="pricing-list">
+                                <ul>
+                                    <li><i class="fa fa-plane"></i>1,000 messages</li>
+                                    <li><i class="fa fa-plane"></i><span>limited</span> data</li>
+                                    <li><i class="fa fa-plane"></i><span>limited</span> users</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="best-2" class="best col-md-4 col-sm-12 col-xs-12 col-centered">
+                        <div class="pricing-table">
+                            <div class="pricing-header">
+                                <p class="pricing-title">Route 2</p>
+                                <p class="pricing-rate"><sup>£</sup> 0 </p>
+                                <!-- <a href="#" class="btn btn-custom">And Get Free Month</a> -->
+                            </div>
+
+                            <div class="pricing-list">
+                                <ul>
+                                    <li><i class="fa fa-plane"></i>1,000 messages</li>
+                                    <li><i class="fa fa-plane"></i><span>limited</span> data</li>
+                                    <li><i class="fa fa-plane"></i><span>limited</span> users</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="best-3" class="best col-md-4 col-sm-12 col-xs-12 col-centered">
+                        <div class="pricing-table">
+                            <div class="pricing-header">
+                                <p class="pricing-title">Route 3</p>
+                                <p class="pricing-rate"><sup>£</sup> 0 </p>
+                                <!-- <a href="#" class="btn btn-custom">And Get Free Month</a> -->
+                            </div>
+
+                            <div class="pricing-list">
+                                <ul>
+                                    <li><i class="fa fa-plane"></i>1,000 messages</li>
+                                    <li><i class="fa fa-plane"></i><span>limited</span> data</li>
+                                    <li><i class="fa fa-plane"></i><span>limited</span> users</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
             <table class="table table-striped">
                 <thead>
                     <th>#</th>
@@ -216,12 +277,18 @@
                     <div class="clearfix"></div>
                     <h2 class="section-heading">Search</h2>
                     <p class="lead">
-                        Sky Trip is a multi-destination flight ticket builder and aims to take away the hustle of planning ahead, if all you want is to travel, at the cheapest prices possible. Simply choose a country of origin, date of departure, and the destinations you would like to travel to, with the time you desire to stay at each one. Our engine produces a route for you, with the dates you will fly from each airport and the total cost of the trip. If you are flexible with the days you'll be staying at each place, you can use the 'Flexible' feature, which will slightly vary the duration of your trip, to find even better flight tickets. 
+                        Sky Trip is a multi-destination flight ticket builder and aims to take away the hustle of planning ahead, if all you want is to travel, at the cheapest prices possible. 
+                    </p>
+                    <p class="lead">
+                        Simply choose a country of origin, date of departure, and the destinations you would like to travel to, with the time you desire to stay at each one. 
+                    </p>
+                    <p class="lead">
+                        Our engine produces a route for you, with the dates you will fly from each airport and the total cost of the trip. If you are flexible with the days you'll be staying at each place, you can use the 'Flexible' feature, which will slightly vary the duration of your trip, to find even better flight tickets. 
 .
                     </p>
                 </div>
-                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
-                    <img class="img-responsive" src="img/generic.png" alt="">
+                <div class="col-lg-6 col-lg-offset-1 col-sm-6">
+                    <img class="img-responsive" src="img/board.png" alt="">
                 </div>
             </div>
 
@@ -241,14 +308,17 @@
                     <div class="clearfix"></div>
                     <h2 class="section-heading">Fly</h2>
                     <p class="lead">
-                    We'll return you the cheapest routes for your trip in the form of a table.
-                    From the table, choose the route that suits you best. You will be able to see
-                    your trip on a map, and you'll be provided with details for each flight, from which
-                    you can also book your tickets directly, by following the corresponding links.
+                        We'll return you the cheapest routes for your trip in the form of a table.
+                        From the table, choose the route that suits you best. 
+                    </p>
+                    <p class="lead">
+                        You will be able to see your trip on a map, and you'll be provided with 
+                        details for each flight, from which you can also book your tickets directly, 
+                        by following the corresponding links.
                     </p>
                 </div>
                 <div class="col-lg-5 col-sm-pull-6  col-sm-6">
-                    <img class="img-responsive" src="img/generic.png" alt="">
+                    <img class="img-responsive" src="img/map.png" alt="">
                 </div>
             </div>
 
@@ -326,6 +396,7 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
     <script src="js/parallax.min.js"></script>
+    <script src="js/jquery.scrollTo.min.js"></script>
     <script src="js/extra.js"></script>
     <script src="js/map.js"></script>
 
