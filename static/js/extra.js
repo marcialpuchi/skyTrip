@@ -130,11 +130,11 @@ var static_dates = function(data){
 				}
 				list += '<th>Return</th> <th>Total Cost</th>'
 			})
+
 			$('#results table thead').html(list)
 
-
-
 			$.each(data.Routes, function(e){
+
 				var cost = '<td>' + this.Cost + '</td>'
 				var stops = ''
 				var connect = []
@@ -225,10 +225,16 @@ var flex_dates = function(data){
 					$('#best-' + (e+1)).css('display', 'inline-block')
 				}
 
+				return e<9
+
 			})
 
-			$('#results table tbody').html(list)
-			$('.results').css('display', 'block')
+			$('#results table tbody').html(list);
+			$('.results').css('display', 'block');
+
+			$('.results table tr').on('click', function(){
+				live_price(this);
+			})
 
 		},
 		error: function(data){
@@ -237,6 +243,12 @@ var flex_dates = function(data){
 	});
 }
 
+
+var live_price = function(element){
+
+	console.log(element)
+
+}
 
 
 var textChange = function(elements, target){
