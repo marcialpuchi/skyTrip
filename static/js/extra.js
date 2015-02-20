@@ -111,6 +111,19 @@ var route = function(){
 
 			var list = ''
 
+			$(function(){
+				list = "<th>#</th>"
+				var num_of_flights = data.Routes[0].Route.length
+				console.log(num_of_flights)
+				for (i = 1; i < num_of_flights; i++) { 
+    				list += "<th>Flight #" + parseInt(i) + "</th>";
+				}
+				list += '<th>Return</th> <th>Total Cost</th>'
+			})
+			$('#results table thead').html(list)
+
+
+
 			$.each(data.Routes, function(e){
 				var cost = '<td>' + this.Cost + '</td>'
 				var stops = ''
@@ -154,6 +167,8 @@ var route = function(){
 	});
 
 }
+
+
 
 
 var textChange = function(elements, target){
