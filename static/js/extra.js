@@ -203,7 +203,7 @@ var flex_dates = function(data){
 
 				})
 
-				list += '<tr><td>'+ (e+1) + '</td>' + stops + cost + '</tr>'
+				list += '<tr data=\'' + JSON.stringify(this) + '\'><td>'+ (e+1) + '</td>' + stops + cost + '</tr>'
 
 				return e<9
 
@@ -213,6 +213,7 @@ var flex_dates = function(data){
 			$('.results').css('display', 'block');
 
 			$('.results table tr').on('click', function(){
+				console.log(this)
 				live_price(this);
 			})
 
@@ -232,7 +233,7 @@ var live_price = function(element){
 		data.push(this.textContent.split(' ')[0])
 	});
 
-	trace_route(data)
+	// trace_route(data)`
 
 	$.ajax({
 		type: "POST",
