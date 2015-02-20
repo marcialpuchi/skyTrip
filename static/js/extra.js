@@ -120,18 +120,19 @@ var static_dates = function(data){
 			}
 
 			var list = ''
+			var head = ''
 
 			$(function(){
-				list = "<th>#</th>"
+				head = "<th>#</th>"
 				var num_of_flights = data.Routes[0].Route.length
 				console.log(num_of_flights)
 				for (i = 1; i < num_of_flights; i++) { 
-    				list += "<th>Flight #" + parseInt(i) + "</th>";
+    				head += "<th>Flight #" + parseInt(i) + "</th>";
 				}
-				list += '<th>Return</th> <th>Total Cost</th>'
+				head += '<th>Return</th> <th>Total Cost</th>'
 			})
 
-			$('#results table thead').html(list)
+			$('#results table thead').html(head)
 
 			$.each(data.Routes, function(e){
 
@@ -150,25 +151,17 @@ var static_dates = function(data){
 
 				})
 
-				list += '<tr><td>'+ (e+1) + '</td>' + stops + cost + '</tr>'
+				list += '<tr data=\'' + JSON.stringify(this) + '\'><td>'+ (e+1) + '</td>' + stops + cost + '</tr>'
 
-				if (e < 3){
-
-					$('#best-' + (e+1) + ' .pricing-rate').html('<sup>£</sup>' + cost)
-					$('#best-' + (e+1) + ' .pricing-list ul').html('')
-
-					$.each(connect, function(){
-						$('#best-' + (e+1) + ' .pricing-list ul').append('<li><i class="fa fa-plane"></i>' + this.trip + '<span class="pull-right">' + this.cost + '</span></li>')
-
-					})
-
-					$('#best-' + (e+1)).css('display', 'inline-block')
-				}
 
 			})
 
 			$('#results table tbody').html(list)
 			$('.results').css('display', 'block')
+
+			$('.results table tr').on('click', function(){
+				live_price(this);
+			})
 
 		},
 		error: function(data){
@@ -212,19 +205,6 @@ var flex_dates = function(data){
 
 				list += '<tr><td>'+ (e+1) + '</td>' + stops + cost + '</tr>'
 
-				if (e < 3){
-
-					$('#best-' + (e+1) + ' .pricing-rate').html('<sup>£</sup>' + cost)
-					$('#best-' + (e+1) + ' .pricing-list ul').html('')
-
-					$.each(connect, function(){
-						$('#best-' + (e+1) + ' .pricing-list ul').append('<li><i class="fa fa-plane"></i>' + this.trip + '<span class="pull-right">' + this.cost + '</span></li>')
-
-					})
-
-					$('#best-' + (e+1)).css('display', 'inline-block')
-				}
-
 				return e<9
 
 			})
@@ -247,6 +227,44 @@ var flex_dates = function(data){
 var live_price = function(element){
 
 	console.log(element)
+	data = []
+	$(element).children('td:not(:first-child):not(:last-child)').each(function(){
+		//data.push(this.text())
+	});
+
+	$.ajax({
+		type: "POST",
+		url: "/get_route_live",
+    	data: $(element).attr('data'),
+    	contentType: 'application/json; charset=utf-8',
+    	dataType: 'json',
+    	async: true,
+		success: function(data){
+			console.log(data)
+
+			$.each(data.data, function(e){
+
+				console.log(this)
+
+				$('#best-' + (e+1) + ' .pricing-title').html(this.origin + '&rarr;' + this.destination)
+				$('#best-' + (e+1) + ' .pricing-rate').html('<sup>£</sup>' + this.price)
+				$('#best-' + (e+1) + ' .pricing-book').attr('href', this.deeplink)
+				$('#best-' + (e+1) + ' .pricing-list ul').html('')
+
+				
+				$('#best-' + (e+1) + ' .pricing-list ul').append('<li><i class="fa fa-calendar"></i>' + this.departure_time + '</li>')
+				$('#best-' + (e+1) + ' .pricing-list ul').append('<li><i class="fa fa-timer"></i>' + this.duration + '</li>')
+				$('#best-' + (e+1) + ' .pricing-list ul').append('<li><i class="fa fa-plane"></i>' + this.carrier_name + '</li>')
+
+				$('#best-' + (e+1)).css('display', 'inline-block')
+
+			});
+
+		},
+		error: function(e){
+			console.log("Error in Love Prices")
+		}
+	});
 
 }
 
