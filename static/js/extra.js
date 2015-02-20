@@ -99,18 +99,24 @@ var route = function(){
     	dataType: 'json',
     	async: true,
 		success: function(data){
+
+			if (data.Routes == 0){
+				alert("No Routes available :(")
+				return true;
+			}
+
 			var list = ''
 
 			$.each(data.Routes, function(e){
-				var cost = '<td>' + e.Price + '</td>'
+				var cost = '<td>' + this.Cost + '</td>'
 				var stops = ''
 
-				$.each(e.Route, function(a){
-					stops += '<td>' + a.Orig + ' -> ' + a.Dest + '</td>'
+				$.each(this.Route, function(e){
+					stops += '<td>' +  this.Leg.Orig + ' &rarr; ' + this.Leg.Dest + '</td>'
 
 				})
 
-				list += '<tr>' + stops + cost + '</tr>'
+				list += '<tr><td>'+ (e+1) + '</td>' + stops + cost + '</tr>'
 
 			})
 
